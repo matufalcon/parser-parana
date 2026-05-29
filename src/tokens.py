@@ -39,8 +39,8 @@ TOKENS_TYPES = [
     # Literales
     ('FECHA',        r'\d{4}-\d{2}-\d{2}'),
     ('HORA',         r'\d{2}:\d{2}'),
-    ('NUMBER',       r'\d+(?:\.\d+)?'),
-    ('INTEGER',      r'\d+'),
+    ('NUMBER',  r'\d+\.\d+'),      
+    ('INTEGER', r'\d+'),     
 
     # Identificadores 
     ('ID_BOLETIN',   r'\bBOL-\d{3}\b'),
