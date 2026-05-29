@@ -8,7 +8,7 @@ from typing import List
 from tokens import TOKENS_TYPES, Token
 
 MASTER_PATTERN = re.compile(
-    '|'.join(f'(?P<{name}>{pattern})' for name, pattern in TOKEN_TYPES)
+    '|'.join(f'(?P<{name}>{pattern})' for name, pattern in TOKENS_TYPES)
 )
 
 class LexerError(Exception):
