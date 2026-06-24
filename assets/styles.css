@@ -96,22 +96,11 @@ h1 {
     border-color: #4dd0e1;
 }
 
-.estacion {
-    background: #071e3d;
-    color: #90caf9;
-    border-color: #1a7fc1;
-}
-
-.medicion {
+.medicion, 
+.tendencia{
     background: #071e3d;
     color: #b3e5fc;
     border-color: #0288d1;
-}
-
-.tendencia {
-    background: #071e3d;
-    color: #b2ebf2;
-    border-color: #0097a7;
 }
 
 .alerta-verde {
@@ -136,4 +125,19 @@ h1 {
     background: #1a0000;
     color: #ef9a9a;
     border-color: #b71c1c;
+}
+
+details > summary {
+    cursor: pointer;
+    list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

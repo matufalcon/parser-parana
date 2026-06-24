@@ -6,11 +6,10 @@ Parser de Alertas Hidrológicas del Río Paraná
 from ast_nodes import BoletinNode
 
 PALETA_ESTACIONES = [
-    {"bg": "#071e3d", "color": "#4dd0e1", "border": "#4dd0e1"},  # celeste
-    {"bg": "#0d1f0d", "color": "#80cbc4", "border": "#00897b"},  # verde agua
+    {"bg": "#0d1a1a", "color": "#80deea", "border": "#00838f"},  # cian 
     {"bg": "#1a0d2e", "color": "#ce93d8", "border": "#7b5cff"},  # violeta
-    {"bg": "#1a1000", "color": "#ffcc80", "border": "#e65100"},  # ámbar
-    {"bg": "#0d1a2e", "color": "#90caf9", "border": "#1565c0"},  # azul rey
+    {"bg": "#1a1000", "color": "#ffcc80", "border": "#e65100"},  # ambar
+    {"bg": "#0d1a2e", "color": "#90caf9", "border": "#1565c0"},  # azul
 ]
 
 
@@ -52,6 +51,9 @@ def _nodo_a_html(nodo: dict) -> str:
 
     label = nodo["label"].replace("\\n", "<br>")
     estilo = f' style="{nodo["estilo"]}"' if nodo.get("estilo") else ""
+
+    if nodo["clase"] == "estacion" and nodo["hijos"]:
+        return f'<details><summary class="node {nodo["clase"]}"{estilo}>{label}</summary>{hijos_html}</details>'
 
     return f'<div class="node {nodo["clase"]}"{estilo}> {label} </div> {hijos_html}'
 
