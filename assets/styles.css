@@ -90,7 +90,7 @@ h1 {
     letter-spacing: 0.05em;
 }
 
-.boletin {
+.boletin, .estacion{
     background: #071e3d;
     color: #4dd0e1;
     border-color: #4dd0e1;

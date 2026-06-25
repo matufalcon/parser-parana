@@ -36,9 +36,13 @@ def _ast_a_dict(ast: BoletinNode) -> dict:
         ))
 
     return _nodo(
-        f"BOLETIN\\n{ast.id_boletin}\\n{ast.fecha} {ast.hora}",
+        f"BoletinNode\\n{ast.id_boletin}",
         "boletin",
-        estaciones,
+        hijos=[
+            _nodo(f"FECHA\\n{ast.fecha}", "medicion"),
+            _nodo(f"HORA\\n{ast.hora}", "medicion"),
+            _nodo("Lista de \\nestaciones", "medicion", hijos=estaciones),
+        ]
     )
 
 
