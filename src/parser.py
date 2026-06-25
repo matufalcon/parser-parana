@@ -6,7 +6,7 @@ Grámatica implementada:
     <boletin>          → BOLETIN_KW <encabezado> <lista_estaciones> FIN_KW
     <encabezado>       → FECHA HORA ID_BOLETIN
     <lista_estaciones> → <estacion> <resto_estaciones>
-    <resto_estaciones> → PUNTO_Y_COMA <estacion> <resto_estaciones> | ε
+    <resto_estaciones> → PUNTO_Y_COMA <estacion> <resto_estaciones> | λ
     <estacion>         → ESTACION_KW ID_ESTACION <mediciones> <alerta>
     <mediciones>       → <nivel> <caudal> <tendencia>
     <numero>           → INTEGER | NUMBER
@@ -110,7 +110,7 @@ class Parser:
         return estaciones
 
     def _resto_estaciones(self) -> list:
-        """<resto_estaciones> → PUNTO_Y_COMA <estacion> <resto_estaciones> | ε"""
+        """<resto_estaciones> → PUNTO_Y_COMA <estacion> <resto_estaciones> | λ"""
         if self._tipo_actual() == 'PUNTO_Y_COMA':
             self._consumir('PUNTO_Y_COMA')
             
@@ -118,7 +118,7 @@ class Parser:
             
             return [estacion] + self._resto_estaciones()
         
-        return []   # produccion vacia (ε)
+        return []   # produccion vacia (λ)
     
     def _estacion(self) -> EstacionNode:
         """<estacion> → ESTACION_KW ID_ESTACION <mediciones> <alerta>"""
