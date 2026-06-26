@@ -32,6 +32,7 @@ class Parser:
     def __init__(self, tokens: List[Token]):
         self.tokens  = tokens
         self.pos     = 0
+        self.estaciones = set()
     
     #--------------------------
     #  Utilidades internas
@@ -124,7 +125,16 @@ class Parser:
         """<estacion> → ESTACION_KW ID_ESTACION <mediciones> <alerta>"""
         self._consumir('ESTACION_KW')
         
-        id_est = self._consumir('ID_ESTACION').valor
+        tok = self._consumir('ID_ESTACION')
+        id_est = tok.valor
+
+        if id_est in self.estaciones:
+            raise ParseError(
+                f"Línea {tok.linea}, col {tok.col}: "
+                f"la estación '{id_est}' ya fue declarada"
+        )
+
+        self.estaciones.add(id_est)
         nivel, caudal, tendencia = self._mediciones()
         alerta = self._alerta()
         
@@ -161,7 +171,7 @@ class Parser:
         )
 
     def _nivel(self) -> NivelNode:
-        """<nivel> → NIVEL_KW NUMBER METROS_KW"""
+        """<nivel> → NIVEL_KW <numero> METROS_KW"""
         self._consumir('NIVEL_KW')
         valor = self._numero()
 
@@ -169,7 +179,7 @@ class Parser:
         return NivelNode(valor=valor)
 
     def _caudal(self) -> CaudalNode:
-        """<caudal> → CAUDAL_KW NUMBER METROS3_KW"""
+        """<caudal> → CAUDAL_KW <numero> METROS3_KW"""
         self._consumir('CAUDAL_KW')
         valor = self._numero()
         
